@@ -286,23 +286,4 @@ if __name__ == "__main__":
     menu = Menu()
     menu.execute_menu()
 
-# class DisplayNotes:
-#     @staticmethod
-#     def execute(note_manager):
-#         notes = note_manager.notes
-
-#         if not notes:
-#             print("Нет доступных заметок.")
-#             return
-
-#         table = []
-#         for note in notes:
-#             table.append([note["id"], note["title"], DisplayNotes.shorten_text(note["body"]), note["created"],
-#                           note["last_modified"]])
-
-#         headers = ["ID", "Title", "Body", "Created", "Last Modified"]
-#         print(tabulate(table, headers=headers, tablefmt="grid", colalign=["center"] * len(headers)))
-
-#     @staticmethod
-#     def shorten_text(text, max_length=40):
-#         return (text[:max_length] + '...') if len(text) > max_length else text
+ 
