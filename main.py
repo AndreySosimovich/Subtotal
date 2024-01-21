@@ -79,24 +79,24 @@ class NoteManager:
 class AddNote:
     @staticmethod
     def execute(note_manager):
-        new_id = input("Введите идентификатор заметки (целое число, от 1 до 9999): ")
+        new_id = input("Введите номер заметки (целое число, от 1 до 9999): ")
         
         if any(note.id == str(new_id) for note in note_manager.notes):
-            print(f"Заметка с идентификатором {new_id} уже существует.")
+            print(f"Заметка с номером {new_id} уже существует.")
             return
 
         if not new_id.isdigit():
-            print("Некорректный ввод. Идентификатор должен быть целым числом.")
+            print("Некорректный ввод. Номер должен быть целым числом.")
             return
 
         new_id = int(new_id)
 
         if not (1 <= new_id <= 9999):
-            print("Некорректный ввод. Идентификатор должен быть положительным числом, не превышающим 9999.")
+            print("Некорректный ввод. Номер должен быть положительным числом, не превышающим 9999.")
             return
 
-        title = input("Введите заголовок заметки: ")
-        body = input("Введите тело заметки: ")
+        title = input("Введите название заметки: ")
+        body = input("Введите текст заметки: ")
 
         new_note = Note(
             id=str(new_id),
@@ -115,10 +115,10 @@ class AddNote:
 class EditNote:
     @staticmethod
     def execute(note_manager):
-        note_id = input("Введите идентификатор заметки для редактирования: ")
+        note_id = input("Введите номер заметки, которую хотите отредактировать: ")
 
         if not note_id.isdigit():
-            print("Некорректный ввод. Идентификатор должен быть целым числом.")
+            print("Некорректный ввод. Номер должен быть целым числом.")
             return
 
         note_id = int(note_id)
@@ -129,11 +129,11 @@ class EditNote:
             print("Текущая заметка:")
             print(vars(note_to_edit))
 
-            new_title = input("Введите новый заголовок (или оставьте пустым для сохранения текущего): ")
+            new_title = input("Введите новое название (или ничего не вводите для сохранения текущего): ")
             if new_title:
                 note_to_edit.title = new_title
 
-            new_body = input("Введите новое тело (или оставьте пустым для сохранения текущего): ")
+            new_body = input("Введите новый текст (или ничего не вводите для сохранения текущего): ")
             if new_body:
                 note_to_edit.body = new_body
 
@@ -143,15 +143,15 @@ class EditNote:
 
             note_manager.save_notes()  # Сохраняем заметки после редактирования
         else:
-            print(f"Заметка с идентификатором {note_id} не найдена.")
+            print(f"Заметка с номером {note_id} не найдена.")
             
 class DeleteNote:
     @staticmethod
     def execute(note_manager):
-        note_id = input("Введите идентификатор заметки для удаления: ")
+        note_id = input("Введите номер заметки, которую хотите удалить: ")
 
         if not note_id.isdigit():
-            print("Некорректный ввод. Идентификатор должен быть целым числом.")
+            print("Некорректный ввод. Номер должен быть целым числом.")
             return
 
         note_id = int(note_id)
@@ -161,20 +161,20 @@ class DeleteNote:
             if note.id == str(note_id):
                 note_manager.notes.remove(note)
                 note_found = True
-                print(f"Заметка с идентификатором {note_id} удалена.")
+                print(f"Заметка с номером {note_id} удалена.")
                 note_manager.save_notes()  # Сохраняем заметки после удаления
                 break
 
         if not note_found:
-            print(f"Заметка с идентификатором {note_id} не найдена.")
+            print(f"Заметка с номером {note_id} не найдена.")
             
 class ViewNoteById:
     @staticmethod
     def execute(note_manager):
-        note_id = input("Введите идентификатор заметки для просмотра: ")
+        note_id = input("Введите номер заметки для просмотра: ")
 
         if not note_id.isdigit():
-            print("Некорректный ввод. Идентификатор должен быть целым числом.")
+            print("Некорректный ввод. Номер должен быть целым числом.")
             return
 
         note_id = int(note_id)
@@ -187,12 +187,12 @@ class ViewNoteById:
 
             print(tabulate(table_data, headers=headers, tablefmt="grid"))
         else:
-            print(f"Заметка с идентификатором {note_id} не найдена.")
+            print(f"Заметка с номером {note_id} не найдена.")
             
 class SearchNotesByBody:
     @staticmethod
     def execute(note_manager):
-        search_text = input("Введите текст для поиска в теле заметок: ")
+        search_text = input("Введите текст для поиска по содержанию: ")
 
         matching_notes = [note for note in note_manager.notes if search_text.lower() in note.body.lower()]
 
@@ -208,12 +208,12 @@ class SearchNotesByBody:
 class SearchNotesByTitle:
     @staticmethod
     def execute(note_manager):
-        search_text = input("Введите текст для поиска в заголовках заметок: ")
+        search_text = input("Введите текст для поиска по названиям заметок: ")
 
         matching_notes = [note for note in note_manager.notes if search_text.lower() in note.title.lower()]
 
         if not matching_notes:
-            print(f"Нет заметок с заголовком, содержащим текст '{search_text}'.")
+            print(f"Нет заметок с названиями, содержащими текст '{search_text}'.")
             return
 
         headers = ["ID", "Title", "Body", "Created", "Last Modified"]
