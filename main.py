@@ -39,7 +39,7 @@ class DisplayNotes:
             return
 
         sorted_notes = sorted(notes, key=lambda x: x.created)
-        headers = ["ID", "Title", "Body", "Created", "Last Modified"]
+        headers = ["Номер", "Название", "Текст", "Дата создания", "Последнее изменение"]
         table_data = [[note.id, note.title, note.body, note.created, note.last_modified] for note in sorted_notes]
 
         print(tabulate(table_data, headers=headers, tablefmt="grid", colalign=["center"] * len(headers)))
@@ -61,10 +61,10 @@ class FilterNotesByDate:
             print(f"Нет заметок, созданных {date_str}.")
             return
 
-        headers = ["ID", "Title", "Body", "Created", "Last Modified"]
+        headers = ["Номер", "Название", "Текст", "Дата создания", "Последнее изменение"]
         table_data = [[note.id, note.title, note.body, note.created, note.last_modified] for note in filtered_notes]
 
-        print(tabulate(table_data, headers=headers, tablefmt="grid"))        
+        print(tabulate(table_data, headers=headers, tablefmt="grid", colalign=["center"] * len(headers)))        
 
 class NoteManager:
     def __init__(self):
@@ -182,7 +182,7 @@ class ViewNoteById:
         note_to_view = next((note for note in note_manager.notes if note.id == str(note_id)), None)
 
         if note_to_view:
-            headers = ["ID", "Title", "Body", "Created", "Last Modified"]
+            headers = ["Номер", "Название", "Текст", "Дата создания", "Последнее изменение"]
             table_data = [[note_to_view.id, note_to_view.title, note_to_view.body, note_to_view.created, note_to_view.last_modified]]
 
             print(tabulate(table_data, headers=headers, tablefmt="grid"))
@@ -200,10 +200,10 @@ class SearchNotesByBody:
             print(f"Нет заметок, содержащих текст '{search_text}'.")
             return
 
-        headers = ["ID", "Title", "Body", "Created", "Last Modified"]
+        headers = ["Номер", "Название", "Текст", "Дата создания", "Последнее изменение"]
         table_data = [[note.id, note.title, note.body, note.created, note.last_modified] for note in matching_notes]
 
-        print(tabulate(table_data, headers=headers, tablefmt="grid"))
+        print(tabulate(table_data, headers=headers, tablefmt="grid", colalign=["center"] * len(headers)))
         
 class SearchNotesByTitle:
     @staticmethod
@@ -216,10 +216,10 @@ class SearchNotesByTitle:
             print(f"Нет заметок с названиями, содержащими текст '{search_text}'.")
             return
 
-        headers = ["ID", "Title", "Body", "Created", "Last Modified"]
+        headers = ["Номер", "Название", "Текст", "Дата создания", "Последнее изменение"]
         table_data = [[note.id, note.title, note.body, note.created, note.last_modified] for note in matching_notes]
 
-        print(tabulate(table_data, headers=headers, tablefmt="grid"))
+        print(tabulate(table_data, headers=headers, tablefmt="grid", colalign=["center"] * len(headers)))
         
 class Menu:
     def __init__(self):
